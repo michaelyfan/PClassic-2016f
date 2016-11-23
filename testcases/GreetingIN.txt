@@ -1,0 +1,8 @@
+Newton
+Cormen
+Von Neumann
+Euclid
+Descartes
+Fermat
+Ramanujan
+Dijkstra
