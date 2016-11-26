@@ -5,7 +5,7 @@ import java.io.*;
 public class SudokuSolver {
 	
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner sc = new Scanner(new FileReader("SudokuSolverIN.txt"));
+        Scanner sc = new Scanner(new FileReader("testcases/SudokuSolverIN.txt"));
         
         int[][] puzzle = new int[9][9];
         

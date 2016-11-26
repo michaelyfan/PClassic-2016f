@@ -38,7 +38,7 @@ public class FastidiousFarming {
   // requirements
   
   /*
-   * For a two-variable systems, an equation for x and an equation for y can be derived
+   * My notes: For a two-variable systems, an equation for x and an equation for y can be derived
    */
   public static int[] findCrops(int[] cropAInputs, int[] cropBInputs, int[] allowanceInputs) {
 	  double a = cropAInputs[0];
@@ -48,12 +48,31 @@ public class FastidiousFarming {
 	  double d = cropBInputs[1];
 	  double q = allowanceInputs[1];
 	  
-
-	  double y = (q-(c*p/a))/(d-(c*b/a));
-	  double x = (p-b*y)/a;
-
+	  double y;
+	  double x;
 	  
+	  //checks a's value to avoid divide by 0 error
+	  if (a == 0) {
+		  y = p/b;
+		  x = (q-d*y)/c;
+	  }
+	  else {
+		  y = (q-(c*p/a))/(d-(c*b/a));
+		  x = (p-b*y)/a;
+	  }
 	  
+	  //nullifies rounding error
+	  //the precision level is an educated guess
+	  int intX = (int) (x + 0.5);
+	  int intY = (int) (y + 0.5);
+	  if (Math.abs(intX-x) < 0.000001) {
+		  x = intX;
+	  }
+	  if (Math.abs(intY-y) < 0.000001) {
+		  y = intY;
+	  }
+	  
+	  // checks for decimal answers (if yes, then the solution isn't integer)
 	  if (x % 1 == 0 && y % 1 == 0) {
 		  int[] toReturn = {(int)x,(int)y};
 		  return toReturn;
@@ -63,5 +82,7 @@ public class FastidiousFarming {
 		  return toReturn;
 	  }
   }
+  
+  
 
 }
