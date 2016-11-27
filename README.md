@@ -6,4 +6,6 @@ Notes:
 - the IN and OUT txt files *not* in /testcases are sample testcases given at the start of the competition
 
 Completed problems (works for all of PClassic's testcases):
-- 8 (Sudoku Solver)
+- SudokuSolver (#8) ------- Nov. 22, 2016
+- FastidiousFarming (#6) -- Nov. 26, 2016
+- Tricky (#5) ------------- Nov. 27, 2016
