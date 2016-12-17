@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.io.FileNotFoundException;
 public class Treasons
 {
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner sc = new Scanner(new FileReader("TreasonsIN.txt"));
+        Scanner sc = new Scanner(new FileReader("testcases/TreasonsIN.txt"));
         int i=0;
         String[] input=new String[10000];
         while (sc.hasNext()) {
@@ -44,26 +45,49 @@ public class Treasons
     public static String[] maximalAnagramList(String[] array) {
     	/*
     	 * 1) sort each word. store this new array of sorted words in a backup array
-    	 * 2) sort the entire array of sorted words, anagrams will end up next to each other
+    	 * 2) sort the entire array of sorted words (the original, NOT the backup), anagrams will end up next to each other
     	 * 3) find the word of the largest row of words that are the same
     	 * 4) in the backup array, find all the indexes of the alphabetized anagram word
-    	 * 5) return a string array of the original array(parameter)'s elements of #4's indexes
+    	 * 5) return a string array of the original array(parameter)'s elements of #4's indexes, sorted
     	 */
     	// 1
     	String[] sortedWords = new String[array.length];
     	for (int k = 0 ; k < array.length; k++) {
     		sortedWords[k] = sortString(array[k]);
     	}
+    	String[] backupSorted = Arrays.copyOf(sortedWords, sortedWords.length);
     	// 2
     	Arrays.sort(sortedWords);
     	// 3
-    	String keyWord = sortedWords[0];
+    	TreeMap<Integer,String> counts = new TreeMap<Integer,String>();
+    	String currentWord = sortedWords[0];
+    	int count = 1;
     	for (int k = 1; k < sortedWords.length; k++) {
-    		//where you left off
+    		if (sortedWords[k].equals(currentWord)) {
+    			count++;
+    		}
+    		else {
+    			counts.put(count, currentWord);
+    			currentWord = sortedWords[k];
+    			count = 1;
+    		}
     	}
-    	
-    					
-        return array;
+    	counts.put(count, currentWord);
+    	String keyWord = counts.get(counts.lastKey());
+    	// 4
+    	ArrayList<Integer> indexes = new ArrayList<Integer>();
+    	for (int k = 0; k < backupSorted.length; k++) {
+    		if (backupSorted[k].equals(keyWord)) {
+    			indexes.add(k);
+    		}
+    	}
+    	// 5
+    	String[] toReturn = new String[indexes.size()];
+    	for (int k = 0; k < indexes.size(); k++) {
+    		toReturn[k] = array[indexes.get(k)];
+    	}
+    	Arrays.sort(toReturn);
+    	return toReturn;
     }
     
     public static String sortString(String str) {
