@@ -42,11 +42,33 @@ public class Treasons
      * output array being in alphabetical order.
        */
     public static String[] maximalAnagramList(String[] array) {
+    	/*
+    	 * 1) sort each word. store this new array of sorted words in a backup array
+    	 * 2) sort the entire array of sorted words, anagrams will end up next to each other
+    	 * 3) find the word of the largest row of words that are the same
+    	 * 4) in the backup array, find all the indexes of the alphabetized anagram word
+    	 * 5) return a string array of the original array(parameter)'s elements of #4's indexes
+    	 */
+    	// 1
+    	String[] sortedWords = new String[array.length];
+    	for (int k = 0 ; k < array.length; k++) {
+    		sortedWords[k] = sortString(array[k]);
+    	}
+    	// 2
+    	Arrays.sort(sortedWords);
+    	// 3
+    	String keyWord = sortedWords[0];
+    	for (int k = 1; k < sortedWords.length; k++) {
+    		//where you left off
+    	}
     	
-    						
-    						
-    						
     					
         return array;
+    }
+    
+    public static String sortString(String str) {
+    	char[] temp = str.toCharArray();
+    	Arrays.sort(temp);
+    	return new String(temp);
     }
 }

@@ -1,13 +1,21 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 
 
 public class Tester {
 
 	public static void main(String[] args) {
-		double x = 3.9999999999;
-		int y = (int) (x + 0.5);
-		System.out.println(y % 1);
+		System.out.println(sortString("fjoeafweah"));
+		
+		
 	}
-	
+	public static String sortString(String str) {
+    	char[] temp = str.toCharArray();
+    	Arrays.sort(temp);
+    	return new String(temp);
+    }
 
 
 }
